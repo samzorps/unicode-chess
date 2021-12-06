@@ -22,6 +22,12 @@ public abstract class Piece {
 		this.x = startX;
 		this.y = startY;
 
+		if (this.getColor() == Color.WHITE) {
+			Board.white.add(this);
+		} else if (this.getColor() == Color.BLACK) {
+			Board.black.add(this);
+		}
+		Board.setPiece(x, y, this);
 	}
 
 	/**
@@ -47,18 +53,6 @@ public abstract class Piece {
 	 */
 	public Color getColor() {
 		return this.color;
-	}
-
-	/**
-	 * Method that compares two piece Colors
-	 * @param otherPiece - other piece
-	 * @return 
-	 */
-	public boolean sameColor(Piece otherPiece) {
-		if (otherPiece == null) {
-			return false;
-		}
-		return (this.color == otherPiece.getColor());
 	}
 
 	/**
@@ -92,4 +86,125 @@ public abstract class Piece {
 	void setY(int newY) {
 		this.y = newY;
 	}
+	
+	/**
+	 * Method that compares two piece Colors
+	 * @param otherPiece - other piece
+	 * @return 
+	 */
+	public boolean sameColor(Piece otherPiece) {
+		if (otherPiece == null) {
+			return false;
+		}
+		return (this.color == otherPiece.getColor());
+	}
+
+
+
+	/**
+	 * Abstract method for subclasses to override, determines if can move to certain position
+	 * @param x x value to move to
+	 * @param y y value to move to
+	 * @return boolean representing whether or not (x, y) is a valid place to move
+	 */
+	public abstract boolean possibleMove(int x, int y);
+
+	/**
+	 * 
+	 * @param x
+	 * @param y
+	 * @param other
+	 * @return
+	 */
+	public int move(int x, int y, Piece other) {
+
+		int originX = this.getX();
+		int originY = this.getY(); 
+
+		// check if possible move
+		if (!this.possibleMove(x, y)) {
+			return -1;
+		}
+
+		if (this.getColor() == Color.WHITE) {
+			Board.black.remove(other);
+		} else {
+			Board.white.remove(other);
+		}
+
+		Board.setPiece(originX, originY, null);
+		Board.setPiece(x, y, this);
+
+		boolean isFirstMoveOG = this.isFirstMove;
+		this.isFirstMove = false;
+
+		if (Board.isCheck(color) == true) {
+			if (other != null) {
+				if (this.getColor() == Color.WHITE) {
+					Board.black.add(other);
+				} else {
+					Board.white.add(other);
+				}
+			}
+			Board.setPiece(originX, originY, null);
+			Board.setPiece(x, y, other);
+			this.isFirstMove = isFirstMoveOG;
+
+			return -1;
+		}
+
+		// Turn Pawn to Queen if get to the end of the board
+		if (this instanceof Pawn) {
+			char file = this.getID().charAt(4);
+			if (this.getColor() == Color.WHITE && y == 0) {
+				Board.setPiece(x, y, null);
+				Board.white.remove(this);
+				Queen newQueen = new Queen(Color.WHITE, "queen" + file, x, y);
+				System.out.println("Pawn promoted to a queen!");
+			} else if (this.getColor() == Color.BLACK && y == 7) {
+				Board.setPiece(x, y, null);
+				Board.black.remove(this);
+				Queen newQueen = new Queen(Color.BLACK, "queen" + file, x, y);
+				System.out.println("Pawn promoted to a queen!");
+			}
+		}
+
+		return 0;
+	}
+
+	public boolean testMove(int x, int y) {
+
+		Piece other;
+		boolean isFirst = this.isFirstMove;
+
+		int originX = this.getX();
+		int originY = this.getY();
+
+		if (x >= 0 && y >= 0 && x <= 7 && y <= 7) {
+			other = Board.getPiece(x, y);
+			if (this.move(x, y, other) == 0) {
+				// captured piece set to original position
+				Board.setPiece(x, y, other);
+				// selected piece set to original position
+				Board.setPiece(originX, originY, this);
+				isFirstMove = isFirst;
+				if (other != null) {
+					if (other.getColor() == Color.WHITE) {
+						Board.white.add(other);
+					} else
+						Board.black.add(other);
+				}
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public String nullToString() {
+		return "   ";
+	}
+
+	public abstract String toString();
+
+	public abstract boolean canMove();
 }
