@@ -36,14 +36,14 @@ public class Board {
 	 * startGame() is the method used to initialize the game, print the rules, and begin playing. 
 	 */
 	static void startGame() {
-		System.out.println("How to play:");
-		System.out.println("For pawns, type in \"pawn\" followed by the file letter. For example, \"pawnA\"");
-		System.out.println("For bishops, knights and rooks, put \"Q\" or \"K\" to specify Queen's or King's side");
-		System.out.println("provide a space and then enter a valid tile. For example, \"bishopK c4\"");
+		System.out.println("How to play Unicode Chess:");
+		System.out.println("To move a pawn, type in \"pawn\" followed by the file letter. example: \"pawnC\"");
+		System.out.println("For knights, bishops and rooks, put \"Q\" or \"K\" to specify Queen's or King's side piece");
+		System.out.println("After the piece name, provide a space and then enter a valid tile. example: \"knightK f3\"");
 		System.out.println(
-				"Pawns auto-promote to queens. The new queens are referenced by what the pawns file was. \"queenH\"");
+				"Pawns auto-promote to queens. The new queen is referenced by what the pawns file was. example: \"queenH\"");
 		System.out.println(
-				"To castle, type castle, followed by a space and then a capital K or Q to specify a side. \"castle Q\"\n");
+				"To castle, type \"castle\", then a space, and then capital K or Q to specify which side. \"castle Q\"\n");
 
 		// spawn balack pieces
 		new Rook(Color.BLACK, "rookQ", 0, 0);
