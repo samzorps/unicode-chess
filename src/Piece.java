@@ -1,13 +1,10 @@
 
 public abstract class Piece {
-
-	private final Color color;
-
+	//use encapsulation
 	private final String ID;
-
-	private int x, y;
-
 	public boolean isFirstMove;
+	private final Color color;
+	private int x, y;
 
 	/***
 	 * General constructor method for a chess piece
@@ -17,8 +14,8 @@ public abstract class Piece {
 	 * @param startY
 	 */
 	public Piece(Color color, String ID, int startX, int startY) {
-		this.color = color;
 		this.ID = ID;
+		this.color = color;
 		this.x = startX;
 		this.y = startY;
 
@@ -38,14 +35,7 @@ public abstract class Piece {
 		return this.ID;
 	}
 
-	/**
-	 * Method that compares two piece IDs
-	 * @param ID string reprenting other piece's ID
-	 * @return boolean representing whether or not the IDs are the same
-	 */
-	public boolean matchID(String ID) {
-		return this.ID.equals(ID);
-	}
+
 
 	/**
 	 * Accessor method for a piece's Color
@@ -85,6 +75,15 @@ public abstract class Piece {
 	 */
 	void setY(int newY) {
 		this.y = newY;
+	}
+
+	/**
+	 * Method that compares two piece IDs
+	 * @param ID string reprenting other piece's ID
+	 * @return boolean representing whether or not the IDs are the same
+	 */
+	public boolean matchID(String ID) {
+		return this.ID.equals(ID);
 	}
 	
 	/**
