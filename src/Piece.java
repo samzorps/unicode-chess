@@ -85,7 +85,7 @@ public abstract class Piece {
 	public boolean matchID(String ID) {
 		return this.ID.equals(ID);
 	}
-	
+
 	/**
 	 * Method that compares two piece Colors
 	 * @param otherPiece - other piece
@@ -170,7 +170,13 @@ public abstract class Piece {
 
 		return 0;
 	}
-
+	/**
+	 * tests a single move of a piece to position x, y
+	 * returns true if it is possible, false otherwise
+	 * @param x
+	 * @param y
+	 * @return
+	 */
 	public boolean testMove(int x, int y) {
 
 		Piece other;
@@ -182,9 +188,7 @@ public abstract class Piece {
 		if (x >= 0 && y >= 0 && x <= 7 && y <= 7) {
 			other = Board.getPiece(x, y);
 			if (this.move(x, y, other) == 0) {
-				// captured piece set to original position
 				Board.setPiece(x, y, other);
-				// selected piece set to original position
 				Board.setPiece(originX, originY, this);
 				isFirstMove = isFirst;
 				if (other != null) {
@@ -203,6 +207,9 @@ public abstract class Piece {
 		return "   ";
 	}
 
+	/**
+	 * abstract methods only to be implemented by the subclasses
+	 */
 	public abstract String toString();
 
 	public abstract boolean canMove();
