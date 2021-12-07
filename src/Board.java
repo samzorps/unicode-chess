@@ -139,7 +139,80 @@ public class Board {
 		}
 
 		return null;
+	}
 
+		/**
+	 * returns true if the path from two squares is not blocked by any pieces
+	 * 
+	 * @param x1 first x coordinate
+	 * @param y1 first y coordinate
+	 * @param x2 second x coordinate
+	 * @param y2 second y coordinate
+	 * @return true if there is an unblocked path from (x1, y1) to (x2, y2), otherwise false
+	 */
+	public static boolean isPathClear(int x1, int y1, int x2, int y2) {
+		
+		int xDistance = x2 - x1;
+		int yDistance = y2 - y1;
+		int xDir = 0;
+		int yDir = 0;
+		int size = 0;
+
+		if (yDistance < 0) {
+			yDir = -1;
+		} else if (yDistance > 0) {
+			yDir = 1;
+		}
+
+		if (xDistance < 0) {
+			xDir = -1;
+		} else if (xDistance > 0) {
+			xDir = 1;
+		}
+
+		if (xDistance != 0) {
+			size = Math.abs(xDistance) - 1;
+		} else {
+			size = Math.abs(yDistance) - 1;
+		}
+
+		for (int i = 0; i < size; i++) {
+			x1 += xDir;
+			y1 += yDir;
+			if (getPiece(x1, y1) != null) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+		/**
+	 * return true if a given color is in check
+	 * @param color
+	 * @return
+	 */
+	public static boolean isCheck(Color color) {
+		Piece king = getPiece("king", color);
+
+		if (color == Color.WHITE) {
+			for (int i = 0; i < black.size(); i++) {
+				Piece p = black.get(i);
+				if (p.possibleMove(king.getX(), king.getY())) {
+					return true;
+				}
+			}
+		}
+
+		else if (color == Color.BLACK) {
+			for (int i = 0; i < white.size(); i++) {
+				Piece p = white.get(i);
+				if (p.possibleMove(king.getX(), king.getY())) {
+					return true;
+				}
+			}
+		}
+
+		return false;
 	}
 
 	/**
