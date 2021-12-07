@@ -4,10 +4,11 @@ import java.util.ArrayList;
  * Board object represents the game board. 
  */
 public class Board {
-	public static ArrayList<Piece> black = new ArrayList<Piece>();
-	public static ArrayList<Piece> white = new ArrayList<Piece>();
-
 	static Piece board[][] = new Piece[8][8];
+
+	public static ArrayList<Piece> white = new ArrayList<Piece>();
+	public static ArrayList<Piece> black = new ArrayList<Piece>();
+
 
 	static void printBoard() {
 		System.out.println("    a   b   c   d   e   f   g   h");
@@ -95,17 +96,8 @@ public class Board {
 			piece.setX(x);
 			piece.setY(y);
 		}
-		board[y][x] = piece;
-	}
 
-	/**
-	 * Get and return the piece currently at the x, y location on the board.
-	 * @param x x coordinate
-	 * @param y y coordinate
-	 * @return piece at coordinates x, y
-	 */
-	public static Piece getPiece(int x, int y) {
-		return board[y][x];
+		board[y][x] = piece;
 	}
 
 	/**
@@ -139,81 +131,20 @@ public class Board {
 		}
 
 		return null;
+
 	}
 
-		/**
-	 * returns true if the path from two squares is not blocked by any pieces
-	 * 
-	 * @param x1 first x coordinate
-	 * @param y1 first y coordinate
-	 * @param x2 second x coordinate
-	 * @param y2 second y coordinate
-	 * @return true if there is an unblocked path from (x1, y1) to (x2, y2), otherwise false
+	/**
+	 * Get and return the piece currently at the x, y location on the board.
+	 * @param x x coordinate
+	 * @param y y coordinate
+	 * @return piece at coordinates x, y
 	 */
-	public static boolean isPathClear(int x1, int y1, int x2, int y2) {
-		
-		int xDistance = x2 - x1;
-		int yDistance = y2 - y1;
-		int xDir = 0;
-		int yDir = 0;
-		int size = 0;
-
-		if (yDistance < 0) {
-			yDir = -1;
-		} else if (yDistance > 0) {
-			yDir = 1;
-		}
-
-		if (xDistance < 0) {
-			xDir = -1;
-		} else if (xDistance > 0) {
-			xDir = 1;
-		}
-
-		if (xDistance != 0) {
-			size = Math.abs(xDistance) - 1;
-		} else {
-			size = Math.abs(yDistance) - 1;
-		}
-
-		for (int i = 0; i < size; i++) {
-			x1 += xDir;
-			y1 += yDir;
-			if (getPiece(x1, y1) != null) {
-				return false;
-			}
-		}
-		return true;
+	public static Piece getPiece(int x, int y) {
+		return board[y][x];
 	}
 
-		/**
-	 * return true if a given color is in check
-	 * @param color
-	 * @return
-	 */
-	public static boolean isCheck(Color color) {
-		Piece king = getPiece("king", color);
 
-		if (color == Color.WHITE) {
-			for (int i = 0; i < black.size(); i++) {
-				Piece p = black.get(i);
-				if (p.possibleMove(king.getX(), king.getY())) {
-					return true;
-				}
-			}
-		}
-
-		else if (color == Color.BLACK) {
-			for (int i = 0; i < white.size(); i++) {
-				Piece p = white.get(i);
-				if (p.possibleMove(king.getX(), king.getY())) {
-					return true;
-				}
-			}
-		}
-
-		return false;
-	}
 
 	/**
 	 * returns true if the path from two squares is not blocked by any pieces
@@ -270,7 +201,7 @@ public class Board {
 		String[] splitStr = move.split(" ");
 		String piece = splitStr[0];
 
-		if (piece.equals("castle")) {
+		if (piece.equals("castle") && splitStr.length > 1) {
 			King king = (King) getPiece("king", color);
 			return king.castle(splitStr[1]);
 		}
@@ -317,9 +248,7 @@ public class Board {
 					return true;
 				}
 			}
-		}
-
-		else if (color == Color.BLACK) {
+		} else if (color == Color.BLACK) {
 			for (int i = 0; i < white.size(); i++) {
 				Piece p = white.get(i);
 				if (p.possibleMove(king.getX(), king.getY())) {
@@ -337,7 +266,6 @@ public class Board {
 	 * @return
 	 */
 	public static boolean isMate(Color color) {
-
 		if (color == Color.WHITE) {
 			for (int i = 0; i < white.size(); i++) {
 				Piece p = white.get(i);
@@ -353,24 +281,23 @@ public class Board {
 				}
 			}
 		}
-
 		return true;
 	}
 
 	/**
-	 * returns true if there is a stalemate, where there are no legal moves one can make
+	 * returns true if there is a stalemate, 
+	 * where you are not in check but 
+	 * there are no legal moves you can make
 	 * 
 	 * @param color color to be checked for a stalemate
 	 * @return true if stalemate, false otherwise
 	 */
 	public static boolean staleMate(Color color) {
-
 		if (isMate(color) == true && isCheck(color) == false) {
 			return true;
+		} else {
+			return false;
 		}
-
-		return false;
-
 	}
 
 }
