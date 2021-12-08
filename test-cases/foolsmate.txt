@@ -1,0 +1,7 @@
+pawnE e4
+pawnA a6
+queen h5
+rookQ a7
+bishopK c4
+rookQ a8
+queen f7
