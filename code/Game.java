@@ -18,10 +18,7 @@ public class Game {
 			while (true) {
 				Board.printBoard();
 				// calculate whos turn it is
-				if (numTurns % 2 == 0) {
-					color = Color.WHITE;
-				} else
-					color = Color.BLACK;
+				if (numTurns % 2 == 0) color = Color.WHITE; else color = Color.BLACK;
 
 				if (Board.staleMate(color) == true) {
 					System.out.println("game over, stalemate!");
