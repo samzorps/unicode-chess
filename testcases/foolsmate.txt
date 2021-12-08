@@ -5,3 +5,4 @@ rookQ a7
 bishopK c4
 rookQ a8
 queen f7
+n
