@@ -13,9 +13,9 @@ public class Testing {
 			int turns = 0;
 			Color color;
 
-			while (true/* while checkMate = false */) {
+			while (true) {
 				Board.printBoard();
-				// check for check
+                // calculate whos turn it is
 				if (turns % 2 == 0) {
 					color = Color.WHITE;
 				} else
