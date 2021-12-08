@@ -5,7 +5,8 @@ import java.util.Scanner;
 public class Testing {
 
 	public static void main(String[] args) throws FileNotFoundException {
-		Scanner userInput = new Scanner(new File("./test-cases/XXX"));
+		Scanner fileInput = new Scanner(new File("./test-cases/foolsmate.txt"));
+        Scanner humanInput = new Scanner(System.in);
 
 		while (true) {
 			Board.startGame();
@@ -36,8 +37,12 @@ public class Testing {
 
 				// move choice
 				System.out.printf("%s's turn \n", color == Color.WHITE ? "White" : "Black");
-
-				String move = userInput.nextLine();
+                String move;
+                if (fileInput.hasNextLine()){
+				    move = fileInput.nextLine();
+                } else {
+                    move = humanInput.nextLine();
+                }
 				System.out.println(move);
 				// process move
 				if (Board.processMove(move, color) == 0) {
@@ -48,7 +53,7 @@ public class Testing {
 
 			}
 			System.out.println("would you like to play again? y/n");
-			if (userInput.next().equals("y")) {
+			if (fileInput.next().equals("y")) {
 				continue;
 			} else
 				System.exit(0);
