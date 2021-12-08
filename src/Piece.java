@@ -116,14 +116,15 @@ public abstract class Piece {
 	 * @return
 	 */
 	public int move(int x, int y, Piece other) {
-
-		int originX = this.getX();
-		int originY = this.getY(); 
-
-		// check if possible move
 		if (!this.possibleMove(x, y)) {
 			return -1;
 		}
+		
+		int originX = this.getX();
+		int originY = this.getY(); 
+		Color color = this.getColor();
+		// check if possible move
+
 
 		if (this.getColor() == Color.WHITE) {
 			Board.black.remove(other);
@@ -145,7 +146,7 @@ public abstract class Piece {
 					Board.white.add(other);
 				}
 			}
-			Board.setPiece(originX, originY, null);
+			Board.setPiece(originX, originY, this);
 			Board.setPiece(x, y, other);
 			this.isFirstMove = isFirstMoveOG;
 
