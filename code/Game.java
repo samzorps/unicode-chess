@@ -10,13 +10,16 @@ public class Game {
 	public static void main(String[] args) {
 		Scanner userInput = new Scanner(System.in);
 
+		// Loop to handle repeated games
 		while (true) {
 			Board.startGame();
 			Color color;
 			int numTurns = 0;
 
+			// Loop to handle specific games
 			while (true) {
 				Board.printBoard();
+
 				// calculate whos turn it is
 				if (numTurns % 2 == 0) color = Color.WHITE; else color = Color.BLACK;
 
@@ -44,6 +47,8 @@ public class Game {
 					System.out.println("illegal move");
 				}
 			}
+
+			// See if the user wants to play again
 			System.out.println("would you like to play again? y/n");
 			if (userInput.next().equals("y")) {
 				continue;
