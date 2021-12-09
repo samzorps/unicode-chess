@@ -5,7 +5,7 @@ import java.util.Scanner;
 public class Testing {
 
 	public static void main(String[] args) throws FileNotFoundException {
-		Scanner fileInput = new Scanner(new File("./test-cases/foolsmate.txt"));
+		Scanner fileInput = new Scanner(new File("./testcases/foolsmate.txt"));
         Scanner humanInput = new Scanner(System.in);
 
 		while (true) {

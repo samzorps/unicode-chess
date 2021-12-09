@@ -1,0 +1,7 @@
+pawnE e4
+pawnE e5
+bishopK c4
+pawnA a6
+knightK h3
+pawnH h6
+castle K
