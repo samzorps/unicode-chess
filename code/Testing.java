@@ -3,9 +3,18 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 public class Testing {
-
+	/**
+	 * This class implements automated testing of our code. All you have to do 
+	 * is change the value of the string "testcasefile" to the correct testing file 
+	 * to run that test case
+	 * 
+	 * @param args none
+	 * @throws FileNotFoundException
+	 */
 	public static void main(String[] args) throws FileNotFoundException {
-		Scanner fileInput = new Scanner(new File("./testcases/foolsmate.txt"));
+		// CHANGE THE VALUE OF testcasefile TO EDIT THE TESTCASE THAT IS RUN
+		String testcasefile = "./testcases/longtest.txt";
+		Scanner fileInput = new Scanner(new File(testcasefile));
         Scanner humanInput = new Scanner(System.in);
 
 		while (true) {

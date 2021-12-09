@@ -242,7 +242,8 @@ public class Board {
 	}
 
 	/**
-	 * return true if a given color is in check
+	 * return true if a given color is in check.
+	 * we use the method of checking if any piece is able to move to the square the king is on
 	 * @param color
 	 * @return
 	 */
