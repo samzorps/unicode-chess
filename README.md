@@ -1,6 +1,6 @@
 # unicode-chess
 
-## A version of chess that can be played in the terminal using unicode chess characters.
+## A version of chess that can be played in the terminal using unicode chess characters. ♔ ♕ ♖ ♗ ♘ ♙
 ![600px-Chess_symbols svg](https://github.com/samzorps/unicode-chess/assets/63939307/2904cb45-dd9a-4fdc-87c8-832ad950a795)
 
 ### How to run in Eclipse:
